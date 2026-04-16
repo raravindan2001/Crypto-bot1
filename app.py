@@ -23,8 +23,8 @@ CORS(app)  # Allow Lovable frontend to call this server
 # Get these from: https://coindcx.com/settings/api
 # NEVER share these with anyone
 # ============================================================
-API_KEY    = "YOUR_API_KEY_HERE"
-API_SECRET = "YOUR_API_SECRET_HERE"
+API_KEY    = "1da1a3fbfc0e8fdf85a2a311ac83e1acae3119d98a7c7fb9"
+API_SECRET = "581c98739c4288b93df8b846ef6263950e23c91f1a47a38d20a27b860d8a4414"
 
 # ============================================================
 # SECTION 2: BOT STRATEGY SETTINGS (Easy to modify)
