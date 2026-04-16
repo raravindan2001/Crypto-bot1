@@ -429,4 +429,5 @@ if __name__ == "__main__":
     print("  Running at: http://localhost:5000")
     print("  Bot enabled:", BOT_CONFIG["enabled"])
     print("=" * 50)
-    app.run(debug=True, port=5000, host="0.0.0.0")
+    port = int(os.environ.get("PORT", 8080))
+    app.run(debug=False, port=port, host="0.0.0.0")
