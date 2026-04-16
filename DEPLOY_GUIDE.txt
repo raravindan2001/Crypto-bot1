@@ -1,0 +1,72 @@
+# CoinDCX Bot — Railway Deployment Guide
+
+## Step 1: Prepare Your Files
+Make sure you have these 3 files in a folder:
+- app.py
+- requirements.txt
+- Procfile
+
+## Step 2: Add Your API Keys
+Open app.py and replace:
+    API_KEY    = "YOUR_API_KEY_HERE"
+    API_SECRET = "YOUR_API_SECRET_HERE"
+
+## Step 3: Push to GitHub
+1. Go to https://github.com and create a new repository
+2. Name it: coindcx-bot
+3. Upload your 3 files to the repository
+
+## Step 4: Deploy on Railway (Free)
+1. Go to https://railway.app
+2. Sign up with your GitHub account
+3. Click "New Project" → "Deploy from GitHub repo"
+4. Select your coindcx-bot repository
+5. Railway auto-detects Python and deploys it
+6. Wait ~2 minutes for deployment
+
+## Step 5: Get Your Server URL
+1. In Railway dashboard, click your project
+2. Click "Settings" → "Domains"
+3. Click "Generate Domain"
+4. Your URL will look like: https://coindcx-bot-production.up.railway.app
+
+## Step 6: Test Your Backend
+Open your browser and visit:
+    https://your-railway-url.up.railway.app/health
+
+You should see: {"status": "ok", "time": "..."}
+
+## Step 7: Update Lovable Frontend
+In your Lovable project, find the line:
+    const BACKEND_URL = "http://localhost:5000"
+
+Replace with your Railway URL:
+    const BACKEND_URL = "https://your-railway-url.up.railway.app"
+
+## Step 8: Enable Live Trading
+When you are ready to go live:
+1. Call POST /bot/config with body: {"enabled": true}
+2. Or edit app.py line: "enabled": True
+
+## Endpoints Reference
+GET  /health          — Check if server is running
+GET  /balance         — Your CoinDCX balances
+GET  /price?pair=BTCINR — Live price
+GET  /indicators      — RSI, MA values
+GET  /signal          — Current strategy signal
+POST /order           — Place manual order
+GET  /orders          — Open orders
+GET  /orders/history  — Trade history
+GET  /bot/status      — Bot state + log
+POST /bot/config      — Update settings
+POST /bot/run_once    — Trigger one strategy check
+
+## Security Notes
+- Never share your API key or secret
+- In Railway, use Environment Variables instead of hardcoding keys:
+  1. Railway dashboard → your project → Variables
+  2. Add: API_KEY = your_key
+  3. Add: API_SECRET = your_secret
+  4. In app.py: import os
+                API_KEY = os.environ.get("API_KEY")
+                API_SECRET = os.environ.get("API_SECRET")
